@@ -6,8 +6,8 @@ import time
 import CanvasAPI_functions as API
     
 url = "https://ubc.instructure.com"
-course_id = '' #input course id here
-assignment_id = ''  #input assignment id here
+course_id = input("Enter course_id:")
+assignment_id = input("Enter assignment_id:")
 student_ids = {}
 student_submissions = {}
 column_letters = list(string.ascii_uppercase)
@@ -16,7 +16,6 @@ names = []
 total_score = []
 comment = []
 score = []
-rubric_criterias = [] #list rubric criterias here
 log = open('log.txt', 'w')
 current_time = time.strftime("%B %d, %Y %I:%M:%S %p")
 log.write(current_time + ": Script start\n")
@@ -41,6 +40,8 @@ while True:
         token = input("Pleease enter a valid token:\n")
         current_time = time.strftime("%B %d, %Y %I:%M:%S %p")
         log.write(current_time + ": Token entered was invalid\n")
+
+rubric_criterias = API.get_rubric_criterias(course_id, assignment_id, token)
     
 current_time = time.strftime("%B %d, %Y %I:%M:%S %p")
 log.write(current_time + ": Start gathering students\n")

@@ -5,6 +5,41 @@ import numpy as np
 import pprint
 import time
 from openpyxl import Workbook
+from urllib.error import HTTPError
+from urllib.parse import urlencode
+from urllib.request import Request, urlopen
+
+_BASE_URL = "https://ubc.instructure.com/api/v1"
+
+def make_request(url, token, method="GET", post_fields={}):
+    request = Request(
+        "{base_url}/{call_url}".format(base_url=_BASE_URL, call_url=url))
+    request.add_header('Authorization', 'Bearer {token}'.format(token=token))
+    request.method = method
+    if post_fields:
+        request.data = urlencode(post_fields).encode()
+    try:
+        response = urlopen(request)
+    except HTTPError as e:
+        return
+    decoded_response = response.readline().decode("utf-8")
+    response_body = json.loads(decoded_response, object_pairs_hook=dict)
+    return response_body
+
+def get_rubric_criterias(course_id, assignment_id, token):
+
+    assignment = make_request("courses/{course_id}/assignments/{assignment_id}"
+                .format(course_id=course_id, assignment_id= assignment_id), token, method = "GET")
+    rubric = assignment['rubric']
+
+    rubric_criteria = []
+
+    for criteria in rubric:
+        rubric_criteria.append(criteria['description'])
+
+    return rubric_criteria
+
+
 
 def get_students(student_ids,
                  user_request,
