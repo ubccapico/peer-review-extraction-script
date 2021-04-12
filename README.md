@@ -29,13 +29,13 @@ The purpose of this script is to provide an easy way for instructors to gather t
 
 ![access-token-window](https://github.com/jguarin16/screenshots/blob/master/access_token_window.png)
 
-6. Copy and Paste the token provided to you onto a secure/encrypted text file in your local machine. Once you close this window, you will not be able to access the token again, so please be careful where you save your text file.
+6. Copy and Paste the token provided to you onto a secure/encrypted file called "token" in your local repository. Once you close this window, you will not be able to access the token again, so please be careful where you save your text file.
 
 ![access-token-details](https://github.com/jguarin16/screenshots/blob/master/save_token.png)
 
 ## How to run the script
-1. Open the "PeerReviewExtraction.py" with your python 3 IDLE
-2. Populate the 'course id', 'assignment_id', 'rubric_criteria' variables
+1. To run using the terminal, navigate to the folder which contains the local repository and type in `python3 PeerReviewExtraction.py`
+2. Enter the course id and assignment id
 
 ![peer_review_extraction](https://github.com/jguarin16/screenshots/blob/master/peer_review_extraction.png)
 
