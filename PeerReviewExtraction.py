@@ -8,6 +8,7 @@ import CanvasAPI_functions as API
 url = "https://ubc.instructure.com"
 course_id = input("Enter course_id:")
 assignment_id = input("Enter assignment_id:")
+choice = input("Enter 1 for mean and 2 for median: ")
 student_ids = {}
 student_submissions = {}
 column_letters = list(string.ascii_uppercase)
@@ -120,7 +121,10 @@ if assignment.status_code == requests.codes.ok:
                                              url,
                                              course_id,
                                              token)
-        API.calc_median(comments_received,
+        if(choice == '1'):
+             API.calc_mean(comments_received, log)
+        else:
+            API.calc_median(comments_received,
                         log)
     else:
         current_time = time.strftime("%B %d, %Y %I:%M:%S %p")
@@ -141,7 +145,7 @@ else:
 current_time = time.strftime("%B %d, %Y %I:%M:%S %p")
 log.write(current_time + ": Start creating output file\n")
 wb = API.create_spreadsheet(comments_received,
-                            column_letters)
+                            column_letters, choice)
 current_time = time.strftime("%B %d, %Y %I:%M:%S %p")
 log.write(current_time + ": output created\n")
 log.write(current_time + ": script successful\n")

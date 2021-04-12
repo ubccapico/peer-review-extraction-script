@@ -182,12 +182,43 @@ def calc_median(comments_received,
     current_time = time.strftime("%B %d, %Y %I:%M:%S %p")
     log.write(current_time + ": Median grades calculated\n") 
 
+
+def calc_mean(comments_received,
+                log):
+    grades = []
+    for student in comments_received.keys():
+        for commenter in comments_received[student].keys():
+            try:
+                grade = comments_received[student][commenter]['Total Grade Received']
+                if grade != None:
+                    grades.append(grade)
+            except KeyError:
+                current_time = time.strftime("%B %d, %Y %I:%M:%S %p")
+                log.write(current_time + ": No grades found for " + student + "\n") 
+                continue
+
+        mean = np.mean(grades)
+        if mean > 0:
+            comments_received[student]['Mean of Grades'] = float(mean)
+        else:
+            comments_received[student]['Mean of Grades'] =  0
+        grades = []
+        
+    current_time = time.strftime("%B %d, %Y %I:%M:%S %p")
+    log.write(current_time + ": Mean grades calculated\n")
+
 def create_spreadsheet(comments_received,
-                       column_letters):
+                       column_letters, choice):
+    s=""
+    if(choice=='1'):
+        s="Mean of Grades"
+    else:
+        s="Median of Grades"
+
     wb = Workbook()
     ws = wb.active
     ws["A1"] = "Student Names"
-    ws["B1"] = "Median of Grades"
+    ws["B1"] = s
     ws["C1"] = "Commenter Names"
 
     flag = 0
@@ -197,10 +228,10 @@ def create_spreadsheet(comments_received,
         cell = column_letters[0] + str(cell_row)
         ws[cell] = student
         cell = column_letters[1] + str(cell_row)
-        ws[cell] = comments_received[student]['Median of Grades']
+        ws[cell] = comments_received[student][s]
         
         for commenter in comments_received[student].keys():
-            if commenter ==  'Median of Grades':
+            if commenter ==  s:
                 continue
             else:
                 cell = column_letters[cell_col] + str(cell_row)
