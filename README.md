@@ -36,9 +36,6 @@ The purpose of this script is to provide an easy way for instructors to gather t
 ## How to run the script
 1. To run using the terminal, navigate to the folder which contains the local repository and type in `python3 PeerReviewExtraction.py`
 2. Enter the course id and assignment id
-
-![peer_review_extraction](https://github.com/jguarin16/screenshots/blob/master/peer_review_extraction.png)
-
 3. If it ran successfully, your IDLE window will print "Done".
 4. You should see a "Data.xlsx" file within the same directory of the script, this is the output you provide to the instructor. 
 
