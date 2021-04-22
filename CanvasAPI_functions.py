@@ -137,8 +137,12 @@ def get_comments(student_ids,
     counter = 0
     
     for assessment in rubric_json['assessments']:
-        student_name = student_submissions[assessment['artifact_id']]
-        commenter_name = student_ids[assessment['assessor_id']]
+        try:
+            student_name = student_submissions[assessment['artifact_id']]
+            commenter_name = student_ids[assessment['assessor_id']]
+        except:
+            continue
+        
         try:
             comments_received[student_name][commenter_name]['Total Grade Received'] =  assessment['score']
         except KeyError:
